@@ -350,11 +350,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1289186839}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ab8dcfb7cf5aeb49a0f6dadc2cf77ad, type: 3}
+  m_Script: {fileID: 11500000, guid: 57e788eecd5c6c9419a748a9ccf689dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   generationSettings:
-    prefab: {fileID: 2110232271472759366, guid: 67e860872e69cc14fa1993e684fc2420, type: 3}
+    prefab: {fileID: 2110232271472759366, guid: 4c0182eddea85624b85c123a83ad2d4f, type: 3}
     tileDistance: 0.5
     size: 10
     mapGenerationType: 0
