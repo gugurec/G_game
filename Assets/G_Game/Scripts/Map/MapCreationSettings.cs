@@ -14,7 +14,6 @@ public class MapCreationSettings
     }
 
     public GameObject prefab;
-    public float tileDistance;
     public int size;
     public MapCreationType mapGenerationType;
     public bool Validate() 
@@ -26,11 +25,6 @@ public class MapCreationSettings
         {
             isValid = false;
             errors += "tile prefab is empty\n";
-        }
-        if (tileDistance == 0)
-        {
-            isValid = false;
-            errors += "tile distance = 0\n";
         }
 
         if(!isValid) { 

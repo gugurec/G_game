@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    const float OFFSET = 0.8660254f;
+    const float OFFSET_Y = 0.8660254f;//    sqrt(3)/2
+    const float OFFSET_X = 1.5f;
+
+    [SerializeField]
+    private GameObject sprite;
 
     [SerializeField]
     [ReadOnly]
@@ -13,10 +17,15 @@ public class Tile : MonoBehaviour
     {
         set { position = value; }
     }
-    public void UpdatePosition(float distance)
+    public void UpdatePosition()
     {
-        Vector3 pos;
-        pos = new Vector3(distance * position.x * 1.5f, distance * position.y * OFFSET);
-        transform.position = pos;
+        SpriteRenderer spriteRendererComponent = sprite.GetComponent<SpriteRenderer>();
+        if (spriteRendererComponent != null)
+        {
+            float distance = spriteRendererComponent.bounds.size.x / 2;
+            Vector3 pos = new Vector3(distance * position.x * OFFSET_X, distance * position.y * OFFSET_Y);
+            transform.position = pos;
+        }
+        
     }
 }

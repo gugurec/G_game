@@ -355,7 +355,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generationSettings:
     prefab: {fileID: 2110232271472759366, guid: 4c0182eddea85624b85c123a83ad2d4f, type: 3}
-    tileDistance: 0.5
     size: 10
     mapGenerationType: 0
 --- !u!1660057539 &9223372036854775807

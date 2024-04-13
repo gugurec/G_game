@@ -11,7 +11,7 @@ public class MapCreator : MonoBehaviour
 
     private void OnValidate()
     {
-        UpdateTilesDistance();
+        UpdateTilesPosition();
     }
     public void CreateMap()
     {
@@ -70,9 +70,9 @@ public class MapCreator : MonoBehaviour
         GameObject tile = Instantiate(generationSettings.prefab, transform);
         Tile tileBehaviour = tile.GetComponent<Tile>();
         tileBehaviour.Position = new Vector2Int(x, y);
-        tileBehaviour.UpdatePosition(generationSettings.tileDistance);
+        tileBehaviour.UpdatePosition();
     }
-    private void UpdateTilesDistance()
+    private void UpdateTilesPosition()
     {
 
         for(int i=0; i< transform.childCount; i++)
@@ -80,7 +80,7 @@ public class MapCreator : MonoBehaviour
             Tile tile = transform.GetChild(i).GetComponent<Tile>();
             if(tile != null)
             {
-                tile.UpdatePosition(generationSettings.tileDistance);
+                tile.UpdatePosition();
             }
         }
     }
