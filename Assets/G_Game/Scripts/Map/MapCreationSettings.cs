@@ -8,13 +8,14 @@ public class MapCreationSettings
 {
     public enum MapCreationType
     {
-        Rectengle,
+        Sqare,
         Circle,
         Maze
     }
 
     public GameObject prefab;
     public float tileDistance;
+    public int size;
     public MapCreationType mapGenerationType;
     public bool Validate() 
     {
