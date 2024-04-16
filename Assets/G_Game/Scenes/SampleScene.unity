@@ -314,6 +314,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7079c06a28c3a5f4d8a5ef16af83794f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraSettings:
+    borderThicknessPercent: 0.01
+    borderMoveSpeed: 10
+    cameraMoveToPointAnimTime: 0.5
 --- !u!111 &963194230
 Animation:
   m_ObjectHideFlags: 0
