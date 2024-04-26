@@ -4,7 +4,6 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField]
     private CameraSettings cameraSettings;
-    private Camera cameraGO;
 
     private Animation cameraAnimation;
     private bool isDragging = false;
@@ -38,9 +37,9 @@ public class CameraController : MonoBehaviour
 
         AnimationClip cameraAnimationClip = new AnimationClip();
         
-        cameraAnimationClip.SetCurve("", typeof(Transform), "localPosition.x", animationCurveX);
-        cameraAnimationClip.SetCurve("", typeof(Transform), "localPosition.y", animationCurveY);
-        cameraAnimationClip.SetCurve("", typeof(Transform), "localPosition.z", animationCurveZ);
+        cameraAnimationClip.SetCurve("", typeof(UnityEngine.Transform), "localPosition.x", animationCurveX);
+        cameraAnimationClip.SetCurve("", typeof(UnityEngine.Transform), "localPosition.y", animationCurveY);
+        cameraAnimationClip.SetCurve("", typeof(UnityEngine.Transform), "localPosition.z", animationCurveZ);
         cameraAnimationClip.legacy = true;
 
         if (!cameraAnimation)
@@ -57,10 +56,10 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         cameraAnimation = GetComponent<Animation>();
-        cameraGO = GetComponent<Camera>();
     }
     private void Update()
     {
+        CameraMoveToPos();
         bool needStopAnimation = false;
         needStopAnimation = needStopAnimation || CameraBorderMove();
         needStopAnimation = needStopAnimation || CameraDraggingMove();
@@ -77,6 +76,17 @@ public class CameraController : MonoBehaviour
             {
                 cameraAnimation.Stop();
             }
+        }
+    }
+
+    private void CameraMoveToPos()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            float t = -ray.origin.z / ray.direction.z;
+            Vector3 intersectionPoint = ray.origin + ray.direction * t;
+            MoveCamera2D(intersectionPoint);
         }
     }
 

@@ -10,19 +10,12 @@ public class MapCreationSettings
         Maze
     }
 
-    public GameObject prefab;
     public int size;
     public MapCreationType mapGenerationType;
     public bool Validate() 
     {
         bool isValid = true;
         string errors = "";
-
-        if (!prefab)
-        {
-            isValid = false;
-            errors += "tile prefab is empty\n";
-        }
 
         if(!isValid) { 
             Debug.LogError(errors);

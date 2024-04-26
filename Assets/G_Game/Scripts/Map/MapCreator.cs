@@ -1,15 +1,16 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using static MapCreationSettings;
 
 public class MapCreator : MonoBehaviour
 {
     [SerializeField]
+    private TileBase tile;
+    [SerializeField]
+    private Tilemap tileMap;
+    [SerializeField]
     private MapCreationSettings generationSettings;
 
-    private void OnValidate()
-    {
-        UpdateTilesPosition();
-    }
     public void CreateMap()
     {
         Debug.Log("Creating map...");
@@ -25,13 +26,7 @@ public class MapCreator : MonoBehaviour
 
     public void ClearMap()
     {
-        while (transform.childCount != 0)
-        {
-            if (Application.isEditor)
-                DestroyImmediate(transform.GetChild(0).gameObject);
-            else
-                Destroy(transform.GetChild(0).gameObject);
-        }
+        tileMap.ClearAllTiles();
     }
     private void SpawnTiles()
     {
@@ -53,31 +48,12 @@ public class MapCreator : MonoBehaviour
     }
     private void SpawnSqare()
     {
-        for (int i = 0; i < generationSettings.size; i++)
+        for (int x = 0; x < generationSettings.size; x++)
         {
-            for (int j = 0; j < generationSettings.size; j++)
+            for (int y = 0; y < generationSettings.size; y++)
             {
-                if((i + j) % 2 == 0)//если оба индекса четные или не четные
-                    SpawnTile(i, j);
-            }
-        }
-    }
-    private void SpawnTile(int x, int y)
-    {
-        GameObject tile = Instantiate(generationSettings.prefab, transform);
-        Tile tileBehaviour = tile.GetComponent<Tile>();
-        tileBehaviour.Position = new Vector2Int(x, y);
-        tileBehaviour.UpdatePosition();
-    }
-    private void UpdateTilesPosition()
-    {
-
-        for(int i=0; i< transform.childCount; i++)
-        {
-            Tile tile = transform.GetChild(i).GetComponent<Tile>();
-            if(tile != null)
-            {
-                tile.UpdatePosition();
+                Vector3Int tilePosition = new Vector3Int(x, y, 0);
+                tileMap.SetTile(tilePosition, tile);
             }
         }
     }
