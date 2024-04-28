@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.WSA;
 using static MapCreationSettings;
 
 public class MapCreator : MonoBehaviour
 {
     [SerializeField]
-    private TileBase tile;
+    private AnimatedTile tile;
     [SerializeField]
     private Tilemap tileMap;
     [SerializeField]
@@ -54,6 +55,7 @@ public class MapCreator : MonoBehaviour
             {
                 Vector3Int tilePosition = new Vector3Int(x, y, 0);
                 tileMap.SetTile(tilePosition, tile);
+                tileMap.SetAnimationFrame(tilePosition, 0);
             }
         }
     }

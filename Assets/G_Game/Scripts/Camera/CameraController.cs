@@ -83,10 +83,7 @@ public class CameraController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            float t = -ray.origin.z / ray.direction.z;
-            Vector3 intersectionPoint = ray.origin + ray.direction * t;
-            MoveCamera2D(intersectionPoint);
+            MoveCamera2D(CameraUtils.Screen2World(Input.mousePosition));
         }
     }
 
