@@ -8,12 +8,28 @@ public class Character : MonoBehaviour
     private List<Sprite> characterVisual;
     [SerializeField]
     private SpriteRenderer visual;
+    [SerializeField]
+    private Color selectedColor = Color.red;
+    [SerializeField]
+    private Color unselecterColor = Color.white;
+    [SerializeField] [ReadOnly]
+    private Vector3Int currentCellPos;
 
-    public Character()
+    public void Select()
     {
+        visual.color = selectedColor;
     }
-    public void MoveToPos(Vector3 pos)
+    public void UnSelect()
     {
-        transform.position = pos;
+        visual.color = unselecterColor;
+    }
+    public void MoveToPos(Map.MapPos mapPos)
+    {
+        currentCellPos = mapPos.cellPos;
+        transform.position = mapPos.worldPos;
+    }
+    public Vector3Int CurrentCellPos
+    {
+        get { return currentCellPos; }
     }
 }

@@ -516,6 +516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map: {fileID: 1289186843}
   charactersController: {fileID: 1698285633}
+  cameraController: {fileID: 963194229}
 --- !u!1 &1698285631
 GameObject:
   m_ObjectHideFlags: 0

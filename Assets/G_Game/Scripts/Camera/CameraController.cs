@@ -10,14 +10,18 @@ public class CameraController : MonoBehaviour
     private Vector3 startDraggingCameraPos;
     private Vector3 startDraggingMousePos;
 
-    public void MoveCamera2D(Vector2 target)
+    public void MoveCamera(Map.MapPos mapPos)
+    {
+        MoveCamera2D(new Vector2(mapPos.worldPos.x, mapPos.worldPos.y));
+    }
+    private void MoveCamera2D(Vector2 target)
     {
         float yOffset = Mathf.Abs(transform.position.z) * Mathf.Sin(transform.eulerAngles.x * Mathf.Deg2Rad);
         Vector3 pos = new Vector3(target.x, target.y + yOffset, transform.position.z);
         MoveCamera(pos);
     }
 
-    public void MoveCamera(Vector3 target)
+    private void MoveCamera(Vector3 target)
     {
         Keyframe[] keyframesX = new Keyframe[2];
         Keyframe[] keyframesY = new Keyframe[2];
@@ -59,7 +63,6 @@ public class CameraController : MonoBehaviour
     }
     private void Update()
     {
-        CameraMoveToPos();
         bool needStopAnimation = false;
         //needStopAnimation = needStopAnimation || CameraBorderMove();
         needStopAnimation = needStopAnimation || CameraDraggingMove();
@@ -76,14 +79,6 @@ public class CameraController : MonoBehaviour
             {
                 cameraAnimation.Stop();
             }
-        }
-    }
-
-    private void CameraMoveToPos()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            MoveCamera2D(CameraUtils.Screen2World(Input.mousePosition));
         }
     }
 
