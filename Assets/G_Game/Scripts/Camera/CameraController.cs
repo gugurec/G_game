@@ -61,7 +61,7 @@ public class CameraController : MonoBehaviour
     {
         CameraMoveToPos();
         bool needStopAnimation = false;
-        needStopAnimation = needStopAnimation || CameraBorderMove();
+        //needStopAnimation = needStopAnimation || CameraBorderMove();
         needStopAnimation = needStopAnimation || CameraDraggingMove();
         if (needStopAnimation)
         {

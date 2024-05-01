@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -10,6 +11,16 @@ public class Map : MonoBehaviour
     private Tilemap tileMap;
     private List<Coroutine> animations = new List<Coroutine>();
     private static int radius = 10;
+
+    public Vector3 GetRandomTilePos()
+    {
+        BoundsInt bounds = tileMap.cellBounds;
+        Vector3Int randomPoint = new Vector3Int(
+            Random.Range(bounds.min.x, bounds.max.x),
+            Random.Range(bounds.min.y, bounds.max.y)
+        );
+        return tileMap.GetCellCenterWorld(randomPoint);
+    }
     private void Start()
     {
         ResetMap();

@@ -38,6 +38,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Map
+    uniqueID: 2612234075
+    locked: 0
+  - name: Characters
+    uniqueID: 1844347061
+    locked: 0
+  - name: Effects
+    uniqueID: 1010508105
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
