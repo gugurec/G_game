@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : TileObject
 {
     [SerializeField]
     private List<Sprite> characterVisual;
@@ -12,8 +12,6 @@ public class Character : MonoBehaviour
     private Color selectedColor = Color.red;
     [SerializeField]
     private Color unselecterColor = Color.white;
-    [SerializeField] [ReadOnly]
-    private Vector3Int currentCellPos;
 
     public void Select()
     {
@@ -22,14 +20,5 @@ public class Character : MonoBehaviour
     public void UnSelect()
     {
         visual.color = unselecterColor;
-    }
-    public void MoveToPos(Map.MapPos mapPos)
-    {
-        currentCellPos = mapPos.cellPos;
-        transform.position = mapPos.worldPos;
-    }
-    public Vector3Int CurrentCellPos
-    {
-        get { return currentCellPos; }
     }
 }

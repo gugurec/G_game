@@ -15,6 +15,7 @@ public class Map : MonoBehaviour
     private Tilemap tileMap;
     private List<Coroutine> animations = new List<Coroutine>();
     private static int radius = 3;
+    private List<Vector3Int> availableCellPositions = new List<Vector3Int>();
 
     public struct MapPos
     {
@@ -27,6 +28,51 @@ public class Map : MonoBehaviour
         }
     }
 
+    public List<MapPos> GetRandomTilesPos(in int count)
+    {
+        List<MapPos> positions = new List<MapPos>();
+        for(int i = 0; i < count; i++)
+        {
+            var pos = GetRandomTilePosExclude(MapUtils.MapPosToCellPos(positions));
+            positions.Add(pos);
+        }
+        return positions;
+    }
+
+    public MapPos GetRandomTilePosExclude(in List<Vector3Int> excludePos)
+    {
+        BoundsInt bounds = tileMap.cellBounds;
+        //Сначала пробуем несколько раз взять случайную точку, в надежде что ее нет в excludePos
+        int attempts = 3;
+        while (attempts != 0)
+        {
+            Vector3Int randomPoint = new Vector3Int(
+            Random.Range(bounds.min.x, bounds.max.x),
+            Random.Range(bounds.min.y, bounds.max.y));
+
+            if (!excludePos.Contains(randomPoint))
+            {
+                return new MapPos(tileMap.GetCellCenterWorld(randomPoint), randomPoint);
+            }
+
+            attempts++;
+        }
+        //Случайная точка не нашлась, придется искать ее чуть дольше.
+        List<Vector3Int> availableCellPositionsCopy = new List<Vector3Int>(availableCellPositions);
+        availableCellPositionsCopy.RemoveAll(excludePos.Contains);
+        if(availableCellPositionsCopy.Count > 0)
+        {
+            int randomIndex = Random.Range(0, availableCellPositionsCopy.Count);
+            Vector3Int pos = availableCellPositionsCopy[randomIndex];
+            return new MapPos(tileMap.GetCellCenterWorld(pos), pos);
+        }
+        else
+        {
+            Debug.LogError("Error while GetRandomTilePos...");
+            return new MapPos(new Vector3(), new Vector3Int());
+        }
+        
+    }
     public MapPos GetRandomTilePos()
     {
         BoundsInt bounds = tileMap.cellBounds;
@@ -77,6 +123,13 @@ public class Map : MonoBehaviour
             for (int y = bounds.yMin; y < bounds.yMax; y++)
             {
                 tileMap.SetAnimationFrame(new Vector3Int(x, y, 0), 0);
+            }
+        }
+        foreach (var pos in bounds.allPositionsWithin)
+        {
+            if (tileMap.HasTile(pos))
+            {
+                availableCellPositions.Add(pos);
             }
         }
     }

@@ -9,6 +9,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private CharactersController charactersController;
     [SerializeField]
+    private ChestsController chestsController;
+    [SerializeField]
     CameraController cameraController;
     private GameState currentGameState;
 
@@ -22,7 +24,11 @@ public class GameController : MonoBehaviour
 
     private void SpawnCharacter()
     {
-        charactersController.SpawnCharacter(map.GetRandomTilePos());
+        charactersController.SpawnCharacter(map);
+    }
+    private void SpawnChests()
+    {
+        chestsController.SpawnChests(map);
     }
     private void OnTileClick(Map.MapPos mapPos)
     {
@@ -38,12 +44,13 @@ public class GameController : MonoBehaviour
                 map.AnimateMap(mapPos);
             }
         }
-        
+        chestsController.OpenChest(mapPos);
     }
 
     private void Start()
     {
         SpawnCharacter();
+        SpawnChests();
     }
 
     private void OnEnable()

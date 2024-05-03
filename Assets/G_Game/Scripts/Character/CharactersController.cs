@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Map;
 
 public class CharactersController : MonoBehaviour
 {
@@ -9,8 +7,9 @@ public class CharactersController : MonoBehaviour
     private GameObject characterPrefab;
     private List<Character> characters = new List<Character>();
     private Character currentControlledCharacter;
-    public void SpawnCharacter(Map.MapPos mapPos)
+    public void SpawnCharacter(in Map map)
     {
+        var mapPos = map.GetRandomTilePos();
         var characterGO = Instantiate(characterPrefab, transform);
         var character = characterGO.GetComponent<Character>();
         if (character)
